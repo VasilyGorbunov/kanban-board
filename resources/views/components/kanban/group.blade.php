@@ -1,10 +1,19 @@
 @props(['label'])
 
 <div {{ $attributes->whereStartsWith('wire:') }} class="flex flex-col flex-shrink-0 self-start max-h-full w-80 ring-1 bg-gray-100 dark:bg-gray-900 ring-gray-950/10 dark:ring-white/10 rounded-md">
-    <h3 class="flex-shrink-0 px-3 pt-3 pb-1 text-sm font-medium">{{ $label }}</h3>
+    <h3 class="flex-shrink-0 p-3 text-sm font-medium">{{ $label }}</h3>
     <div class="flex-1 min-h-0 overflow-y-auto" style="scrollbar-width: thin;">
         <div {{ $attributes->whereStartsWith('x-sort') }} class="pt-1 pb-3 flex flex-col gap-3 px-3">
             {{ $slot }}
         </div>
+    </div>
+    <div>
+        <button
+            type="button"
+            class="flex items-center justify-start gap-1 w-full p-3"
+        >
+            <x-heroicon-o-plus class="size-4"/>
+            <span class="text-sm font-medium">Add Card</span>
+        </button>
     </div>
 </div>

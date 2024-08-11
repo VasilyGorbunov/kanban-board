@@ -148,3 +148,20 @@ it('can create tasks', function () {
 
     assertDatabaseHas('tasks', ['description' => 'Task 3']);
 });
+
+it('property sort new tasks', function () {
+    $group = Group::factory()->create();
+    Task::factory(2)
+        ->state(new Sequence(
+            ['sort' => 0],
+            ['sort' => 1],
+        ))
+        ->for($group)
+        ->create();
+
+    Livewire::test(Board::class)
+        ->set('description', 'New Task')
+        ->call('createTask', $group->id);
+
+    assertDatabaseHas('tasks', ['description' => 'New Task', 'sort' => 2]);
+});

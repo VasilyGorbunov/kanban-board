@@ -22,7 +22,6 @@ class Board extends Component
     public function createTask(Group $group)
     {
         $group->tasks()->create([
-            'sort' => $sort,
             'description' => $this->description,
         ]);
     }

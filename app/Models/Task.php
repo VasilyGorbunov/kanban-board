@@ -19,8 +19,11 @@ class Task extends Model
     protected static function booted()
     {
         static::creating(function (Task $task) {
-            $lastSortPosition = $task->group->tasks()->max('sort');
-            $this->sort = $lastSortPosition == null ? 0 : $lastSortPosition + 1;
+            if($task->sort === null) {
+                $lastSortPosition = $task->group->tasks()->max('sort');
+                $task->sort = $lastSortPosition == null ? 0 : $lastSortPosition + 1;
+            }
+
         });
     }
 
