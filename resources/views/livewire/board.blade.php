@@ -1,4 +1,4 @@
-<div class="flex h-screen">
+<div class="flex h-screen w-full">
     <x-sidebar>
         <x-sidebar.brand />
         <x-sidebar.group label="Tags">

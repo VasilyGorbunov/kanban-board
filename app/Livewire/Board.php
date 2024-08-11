@@ -12,10 +12,19 @@ use Livewire\Component;
 class Board extends Component
 {
     public $groups;
+    public $description;
 
     public function mount()
     {
         $this->groups = Group::all();
+    }
+
+    public function createTask(Group $group)
+    {
+        $group->tasks()->create([
+            'sort' => $sort,
+            'description' => $this->description,
+        ]);
     }
 
     public function sort($taskId, $targetSortPosition)

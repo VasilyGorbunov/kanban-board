@@ -12,8 +12,17 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sort'
+        'sort',
+        'description',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function (Task $task) {
+            $lastSortPosition = $task->group->tasks()->max('sort');
+            $this->sort = $lastSortPosition == null ? 0 : $lastSortPosition + 1;
+        });
+    }
 
     public function group(): BelongsTo
     {
