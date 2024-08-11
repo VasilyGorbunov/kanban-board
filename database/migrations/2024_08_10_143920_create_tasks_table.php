@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Group::class);
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->integer('sort');
             $table->timestamps();
         });
