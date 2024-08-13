@@ -7,11 +7,14 @@ use App\Models\Task;
 use App\View\Components\KanbanLayout;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class Board extends Component
 {
     public $groups;
+
+    #[Rule('required')]
     public $description;
 
     public function mount()
@@ -21,6 +24,7 @@ class Board extends Component
 
     public function createTask(Group $group)
     {
+        $this->validate();
         $group->tasks()->create([
             'description' => $this->description,
         ]);
