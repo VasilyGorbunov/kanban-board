@@ -12,7 +12,6 @@
         <x-kanban.board>
             @foreach($groups as $group)
                 <x-kanban.group
-                    wire:ignore
                     wire:key="group-{{ $group->id }}"
                     x-sort="$wire.sort($item, $position)"
                     :group="$group"

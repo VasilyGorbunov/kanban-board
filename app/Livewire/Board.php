@@ -22,12 +22,10 @@ class Board extends Component
         $this->groups = Group::all();
     }
 
-    public function createTask(Group $group)
+    #[Layout(KanbanLayout::class)]
+    public function render()
     {
-        $this->validate();
-        $group->tasks()->create([
-            'description' => $this->description,
-        ]);
+        return view('livewire.board');
     }
 
     public function sort($taskId, $targetSortPosition)
@@ -35,13 +33,15 @@ class Board extends Component
         $task = Task::find($taskId);
         $currentSortPosition = $task->sort;
 
-        if ($currentSortPosition == $targetSortPosition)
+        if ($currentSortPosition == $targetSortPosition) {
             return;
+        }
 
-        DB::transaction(function () use ($task, $currentSortPosition, $targetSortPosition) {
+        DB::transaction(function () use ($task, $currentSortPosition, $targetSortPosition){
             $group = $task->group;
 
             $task->update(['sort' => -1]);
+
             $tasks = $group->tasks()->whereBetween('sort', [
                 min($currentSortPosition, $targetSortPosition),
                 max($currentSortPosition, $targetSortPosition),
@@ -54,13 +54,19 @@ class Board extends Component
                 // Dragging up, shift down
                 $tasks->increment('sort');
             }
+
             $task->update(['sort' => $targetSortPosition]);
         });
     }
 
-    #[Layout(KanbanLayout::class)]
-    public function render()
+    public function createTask(Group $group)
     {
-        return view('livewire.board');
+        $this->validate();
+
+        $group->tasks()->create([
+            'description' => $this->pull('description'),
+        ]);
+
+        $this->dispatch('task-created');
     }
 }
