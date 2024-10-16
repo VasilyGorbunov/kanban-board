@@ -11,6 +11,8 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $guarded = false;
+
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);

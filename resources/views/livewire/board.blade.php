@@ -11,9 +11,9 @@
         <x-kanban.header/>
         <x-kanban.board>
             @foreach($groups as $group)
-                <x-kanban.group :label="$group->name">
+                <x-kanban.group x-sort="" :label="$group->name">
                     @foreach($group->tasks()->inOrder()->get() as $task)
-                        <x-kanban.card>
+                        <x-kanban.card x-sort:item="">
                             {{ $task->description }}
                         </x-kanban.card>
                     @endforeach

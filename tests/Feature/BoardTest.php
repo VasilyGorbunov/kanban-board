@@ -14,7 +14,7 @@ it('shows all groups', function () {
             ['name' => 'Done']
         ))
         ->create();
-        
+
     Livewire::test(Board::class)
         ->assertSeeText([
             'To-Do',
@@ -62,4 +62,24 @@ it('shows tasks in order', function () {
             'Task 2',
             'Task 3',
         ]);
+});
+
+it('can move task to target position', function () {
+    $group = Group::factory()->create();
+    Task::factory(3)
+        ->state(new Sequence(
+            ['sort' => 0],
+            ['sort' => 1],
+            ['sort' => 2]
+        ))
+        ->for($group)
+        ->create();
+
+    Livewire::test(Board::class)
+        ->call('sort', 1, 2);
+
+    expect($group->tasks)
+        ->find(1)
+        ->sort
+        ->toBe(2);
 });
