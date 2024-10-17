@@ -14,7 +14,7 @@
     <x-kanban.board>
         @foreach($groups as $group)
             <x-kanban.group
-                wire:key="group-{{ $group->id }}"
+                wire:key="group-{{ $group->getKey() }}"
                 x-sort="$wire.sort($item, $position)"
                 :group="$group"
             >
@@ -26,6 +26,7 @@
                 @endforeach
             </x-kanban.group>
         @endforeach
+        <livewire:add-group @group-created="refreshGroups"/>
     </x-kanban.board>
 </x-kanban>
 
