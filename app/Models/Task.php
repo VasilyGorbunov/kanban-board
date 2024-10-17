@@ -13,6 +13,16 @@ class Task extends Model
 
     protected $guarded = false;
 
+    protected static function booted()
+    {
+        static::creating(function (Task $task) {
+            if ($task->sort === null) {
+                $lastSortPosition = $task->group->tasks()->max('sort');
+                $task->sort = $lastSortPosition == null ? 0 : $lastSortPosition + 1;
+            }
+        });
+    }
+
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);

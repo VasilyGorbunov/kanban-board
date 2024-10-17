@@ -12,6 +12,7 @@ use Livewire\Component;
 class Board extends Component
 {
     public $groups;
+    public $description;
 
     public function mount()
     {
@@ -47,6 +48,13 @@ class Board extends Component
         });
 
 
+    }
+
+    public function createTask(Group $group)
+    {
+        $group->tasks()->create([
+            'description' => $this->description,
+        ]);
     }
 
     #[Layout(KanbanLayout::class)]
