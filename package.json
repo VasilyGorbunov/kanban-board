@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@alpinejs/sort": "^3.14.3",
+        "@alpinejs/ui": "^3.14.3-beta.0",
         "autoprefixer": "^10.4.19",
         "postcss": "^8.4.38",
         "tailwindcss": "^3.4.3"

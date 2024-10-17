@@ -19,9 +19,10 @@
                 :group="$group"
             >
                 @foreach($group->tasks()->inOrder()->get() as $task)
-                    <x-kanban.card wire:key="card-{{ $task->id }}" x-sort:item="{{ $task->id }}">
-                        {{ $task->description }}
-                    </x-kanban.card>
+                    <livewire:kanban.card
+                        :task="$task"
+                        wire:key="task-{{ $task->getKey() }}"
+                    />
                 @endforeach
             </x-kanban.group>
         @endforeach
