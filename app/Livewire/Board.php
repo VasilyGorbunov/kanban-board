@@ -54,17 +54,7 @@ class Board extends Component
 
     }
 
-    public function createTask(Group $group)
-    {
-        $this->validate();
-
-        $group->tasks()->create([
-            'description' => $this->pull('description'),
-        ]);
-
-        $this->dispatch('task-created');
-    }
-
+    #[On('task-created')]
     public function refreshGroups()
     {
         $this->groups = Group::all();
