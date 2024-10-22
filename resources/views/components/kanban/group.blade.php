@@ -1,7 +1,6 @@
 @props(['group'])
 
-<div x-on.keyup.escape="showAddTaskForm = false"
-    {{ $attributes->whereStartsWith('wire:') }}
+<div {{ $attributes->whereStartsWith('wire:') }}
     class="flex flex-col flex-shrink-0 self-start max-h-full w-80 ring-1 bg-gray-100 dark:bg-gray-900 ring-gray-950/10 dark:ring-white/10 rounded-md"
 >
     <livewire:edit-group wire:key="edit-group-{{ $group->getKey() }}" :group="$group"/>
